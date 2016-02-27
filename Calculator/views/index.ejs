@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html data-ng-app='cal'>
+  <head>
+
+      <script src='/javascripts/angular.min.js'></script>
+      <script src='/javascripts/angular-resource.min.js'></script>   
+<script src='/javascripts/angular-route.min.js'></script>
+
+
+    
+  <link href ='/stylesheets/bootstrap.min.css' rel ='stylesheet'>
+  <link href ='/stylesheets/style.css' rel ='stylesheet'>
+    <title>CALCULATOR</title>
+
+  </head>
+  <body>
+
+
+  <div class="container">
+    
+    <h1 class="heading">CALCULATOR  + - * / </h1>
+    
+    <div data-ng-controller="CalCtrl">
+   <div class="nav">   
+   	Enter I Number:
+    <input type ="text" data-ng-model="num1" name="num1" id="num1"> <br/>
+    Enter II Number:
+    <input type ="text" data-ng-model="num2" name="num2" id="num2"> <br/>
+     <label class="label1"for="result">Result = </label>   <p>{{calresults}}</p><br>
+        
+    </div> 
+    <input type ="button" value="Addition" data-ng-click="add()" data-ng-model="add" >
+    <input type ="button" value="Subtraction" data-ng-click="sub()" data-ng-model="sub" ><br/><br/>
+    <input type ="button" value="Multiplication" data-ng-click="mul()" data-ng-model="mult" >
+    <input type ="button" value="Division" data-ng-click="div()" data-ng-model="divn" ><br>
+    
+    
+    </div>
+    </div>
+ 
+   
+   <script>
+   var cal = angular.module('cal', []);
+
+ 			
+ 			 cal.controller( 'CalCtrl', function sub($scope,$http){
+  			 console.log("substract module");
+   				
+   				$scope.sub = function(){ $http({
+   				method: 'POST',
+	            url: '/calculate/sub',
+	            data: { "number1": $scope.num1, "number2": $scope.num2 }
+	           		
+	           		}).success(function(data){
+	           		
+		  			console.log("2");
+		  			$scope.calresults =data;
+		  			
+		  			console.log($scope.calresults);	
+		  			
+		  			}).error(function(response){
+		  			console.log("3");
+		  			alert("error");
+		  			});
+ 			};
+ 		  $scope.add = function(){ $http({
+          method: 'POST',
+              url: '/calculate/add',
+              data: { "number1": $scope.num1, "number2": $scope.num2 }
+                
+                }).success(function(data){
+                
+            console.log("add module");
+            $scope.calresults =data;
+            
+            console.log($scope.calresults); 
+            
+            }).error(function(response){
+            console.log("add module");
+            alert("error");
+            });
+      };
+      	
+ 		  $scope.mul = function(){ $http({
+          method: 'POST',
+              url: '/calculate/mul',
+              data: { "number1": $scope.num1, "number2": $scope.num2 }
+                
+                }).success(function(data){
+                
+            console.log("multiply module");
+            $scope.calresults =data;
+            
+            console.log($scope.calresults); 
+            
+            }).error(function(response){
+            console.log("multiply module");
+            alert("error");
+            });
+      };
+ 		
+ 		  $scope.div = function(){ $http({
+          method: 'POST',
+              url: '/calculate/div',
+              data: { "number1": $scope.num1, "number2": $scope.num2 }
+                
+                }).success(function(data){
+                
+            console.log("Div module");
+            $scope.calresults =data;
+            
+            console.log($scope.calresults); 
+            
+            }).error(function(response){
+            console.log("Div module");
+            alert("error");
+            });
+      };
+ 		
+ 			
+ 			});
+ 	</script>
+  
+
+
+<script src="/javascripts/jquery.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+
+  </body>
+</html>
